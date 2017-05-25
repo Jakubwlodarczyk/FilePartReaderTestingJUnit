@@ -8,13 +8,13 @@ public class FilePartReader {
     private Integer toLine;
 
     public FilePartReader() {
-        this.filePath = "src/data/test_data.txt";
+        this.filePath = "";
         this.fromLine = 1;
         this.toLine = 10;
     }
 
     public void setup(String filePath, Integer fromLine, Integer toLine) {
-        if(fromLine < toLine || fromLine < 1) {
+        if(fromLine > toLine || fromLine < 1) {
             throw new IllegalArgumentException("Wrong fromLine and/or toLine parameters!");
         }
     }
@@ -26,20 +26,41 @@ public class FilePartReader {
     public String readLines() throws IOException {
         String[] lines = this.read().split("\\n");
         StringBuilder stringToReturn = new StringBuilder();
-        if (fromLine == 1 && toLine == 1){
-            stringToReturn = new StringBuilder(lines[0]);
-            return stringToReturn.toString();
+        Integer linesToReturn = this.toLine - this.fromLine;
+        if (linesToReturn == 0) {
+            return lines[this.fromLine-1];
         } else {
-            Integer index = 1;
-            for (String line : lines) {
-                if (index >= this.fromLine && index <= this.toLine) {
-                    stringToReturn.append(line);
-                    stringToReturn.append("\n");
-                    index ++;
-                }
+            while (this.fromLine <= this.toLine) {
+                stringToReturn.append(lines[this.fromLine -1]);
+                stringToReturn.append("\n");
+                this.fromLine ++;
             }
-            return stringToReturn.toString().substring(0, stringToReturn.length()-1);
         }
+        return stringToReturn.toString().substring(0, stringToReturn.length()-1);
     }
 
+    public Integer getToLine() {
+        return toLine;
+    }
+
+    public void setToLine(Integer toLine) {
+        this.toLine = toLine;
+    }
+
+    public Integer getFromLine() {
+
+        return fromLine;
+    }
+
+    public void setFromLine(Integer fromLine) {
+        this.fromLine = fromLine;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
 }
