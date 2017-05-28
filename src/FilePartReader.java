@@ -9,8 +9,8 @@ public class FilePartReader {
 
     public FilePartReader() {
         this.filePath = "";
-        this.fromLine = 1;
-        this.toLine = 10;
+        this.fromLine = 0;
+        this.toLine = 0;
     }
 
     public void setup(String filePath, Integer fromLine, Integer toLine) {
@@ -48,7 +48,6 @@ public class FilePartReader {
     }
 
     public Integer getFromLine() {
-
         return fromLine;
     }
 
